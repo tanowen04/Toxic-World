@@ -1,4 +1,4 @@
-# Programmed by Owen Tan
+#Programmed by Owen Tan
 # IMPORTANT: PLEASE ZOOM OUT IN ORDER TO SEE THE ENTIRE SCREEN
 # How to play:
 # Use the WASD keys to control your character
@@ -7,13 +7,13 @@
 # Press the Spacebar to advance text
 import pygame
 from pygame import *
-from replit import audio
 import os
 #from PIL import Image
 import sys
 import random
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d, %d" %(20, 20)
 init()
+mixer.init()
 running = True
 done = 0
 name = ''
@@ -350,7 +350,7 @@ def textBox(xyz, name1):
     while running:
         for event in pygame.event.get():
             if event.type == KEYDOWN:
-                sound = audio.play_file("Dialogue Skip Sound.wav")
+                mixer.Channel(0).play(pygame.mixer.Sound('Dialogue Skip Sound.wav'))
                 if event.unicode == " ":
                     running1 = True
                     while running1:
@@ -398,7 +398,8 @@ def battleScreen(a,b,c,d,mon,num):
     if c == 1:
         numCharsBattle.append("Merisa")
     numCharsBattle.append(" ")
-    bossMusic = audio.play_file("Final Boss tentative.mp3")
+    #bossMusic = audio.play_file("Final Boss tentative.mp3")
+    mixer.Channel(1).play(pygame.mixer.Sound('Final Boss tentative.mp3'))   
     # Character moving function
     def charAttackAnimation(a,b,c,d,i):
         xloc1 = 100
@@ -754,7 +755,8 @@ def battleScreen(a,b,c,d,mon,num):
                     running2 = False
                 for event in pygame.event.get(): 
                     if event.type == QUIT:
-                        bossMusic.set_paused(True)
+                        #bossMusic.set_paused(True)
+                        mixer.Channel(1).stop()
                     # Opens the battle menu                
                     if battleMenu == True:
                         string = i + "'s turn"
@@ -959,7 +961,8 @@ def battleScreen(a,b,c,d,mon,num):
                                     time.wait(2000)
                                     draw.rect(screen,BLACK,(0,0,1000,700))
                                     display.flip()
-                                    bossMusic.set_paused(True)
+                                    #bossMusic.set_paused(True)
+                                    mixer.Channel(1).stop()
                                     return
                                 else:
                                     draw.rect(screen,LIGHTGREY,(20,510,960,170))
@@ -1003,7 +1006,10 @@ def battleScreen(a,b,c,d,mon,num):
                                     if mon == "Slime":
                                         slimeHP -= mainAtk
                                         charAttackAnimation(a,b,c,d,i)
-                                        punchSound = audio.play_file("Punch sound game.wav")
+                                        #punchSound = audio.play_file("Punch sound game.wav")
+                                        mixer.music.load("Punch sound game.wav")
+                                        mixer.music.set_volume(0.5)
+                                        mixer.music.play()                                        
                                         screen.blit(punch1, (xMonster,yMonster))
                                         display.flip()
                                         time.wait(300)
@@ -1021,7 +1027,10 @@ def battleScreen(a,b,c,d,mon,num):
                                     if mon == "Boss":
                                         bossHP -= mainAtk
                                         charAttackAnimation(a,b,c,d,i)
-                                        punchSound = audio.play_file("Punch sound game.wav")
+                                        #punchSound = audio.play_file("Punch sound game.wav")
+                                        mixer.music.load("Punch sound game.wav")
+                                        mixer.music.set_volume(0.5)
+                                        mixer.music.play()                                        
                                         screen.blit(punch1, (xMonster + 90,yMonster + 100))
                                         display.flip()
                                         time.wait(300)
@@ -1041,7 +1050,10 @@ def battleScreen(a,b,c,d,mon,num):
                                         slimeHP -= char2Atk
                                         screen.blit(punch1, (xMonster,yMonster))
                                         display.flip()
-                                        audio.play_file("Punch sound game.wav")
+                                        #audio.play_file("Punch sound game.wav")
+                                        mixer.music.load("Punch sound game.wav")
+                                        mixer.music.set_volume(0.5)
+                                        mixer.music.play()                                        
                                         time.wait(300)
                                         draw.rect(screen,BLACK,(xMonster,yMonster,150,150))
                                         screen.blit(slimeMon, (xMonster,yMonster))
@@ -1057,7 +1069,10 @@ def battleScreen(a,b,c,d,mon,num):
                                     if mon == "Boss":
                                         bossHP -= char2Atk
                                         charAttackAnimation(a,b,c,d,i)
-                                        punchSound = audio.play_file("Punch sound game.wav")
+                                        #punchSound = audio.play_file("Punch sound game.wav")
+                                        mixer.music.load("Punch sound game.wav")
+                                        mixer.music.set_volume(0.5)
+                                        mixer.music.play()                                        
                                         screen.blit(punch1, (xMonster + 90,yMonster + 100))
                                         display.flip()
                                         time.wait(300)
@@ -1076,7 +1091,10 @@ def battleScreen(a,b,c,d,mon,num):
                                     if mon == "Slime":
                                         charAttackAnimation(mainBattle,char2Battle,char3Battle,char4Battle,i)
                                         slimeHP -= char3Atk
-                                        punchSound = audio.play_file("Punch sound game.wav")
+                                        #punchSound = audio.play_file("Punch sound game.wav")
+                                        mixer.music.load("Punch sound game.wav")
+                                        mixer.music.set_volume(0.5)
+                                        mixer.music.play()                                        
                                         screen.blit(punch1, (xMonster,yMonster))
                                         display.flip()
                                         time.wait(300)
@@ -1094,7 +1112,10 @@ def battleScreen(a,b,c,d,mon,num):
                                     if mon == "Boss":
                                         bossHP -= char3Atk
                                         charAttackAnimation(a,b,c,d,i)
-                                        punchSound = audio.play_file("Punch sound game.wav")
+                                        #punchSound = audio.play_file("Punch sound game.wav")
+                                        mixer.music.load("Punch sound game.wav")
+                                        mixer.music.set_volume(0.5)
+                                        mixer.music.play()                                        
                                         screen.blit(punch1, (xMonster + 90,yMonster + 100))
                                         display.flip()
                                         time.wait(300)
@@ -1392,7 +1413,7 @@ def battleScreen(a,b,c,d,mon,num):
         if char3HP <= 0 and c == 1:
             c = 0
             dead.append("Merisa")
-    bossMusic.set_paused(True)
+    mixer.Channel(1).stop()
     draw.rect(screen,GREY,(10,500,980,190))
     draw.rect(screen,LIGHTGREY,(20,510,960,170))
     display.flip()
@@ -1437,6 +1458,7 @@ display.flip()
 time.wait(1000)
 # Dialogue
 textBox("I'm in some type of forest.", name)
+battleScreen(mainBattle,char2Battle,char3Battle,char4Battle,"Slime",1)
 textBox("I'd better look around.", name)
 textBox("Use the WASD keys to move and the SPACE key to interact.", "Game")
 startBackground(1)
@@ -2695,7 +2717,7 @@ while running == True:
             screen.blit(mainRight, (xloc, yloc))
             display.flip()
             running = False
-draw.rect(screen,BLACK(0,0,1000,700))
+draw.rect(screen, (nightShadowR, nightShadowG, nightShadowB), (200, 350, 600, 250))
 display.flip()
 time.wait(1000)
 titleFont = font.SysFont("Times New Roman",130)
