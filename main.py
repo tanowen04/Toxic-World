@@ -1458,7 +1458,6 @@ display.flip()
 time.wait(1000)
 # Dialogue
 textBox("I'm in some type of forest.", name)
-battleScreen(mainBattle,char2Battle,char3Battle,char4Battle,"Slime",1)
 textBox("I'd better look around.", name)
 textBox("Use the WASD keys to move and the SPACE key to interact.", "Game")
 startBackground(1)
